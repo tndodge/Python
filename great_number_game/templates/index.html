@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Great Number Game</title>
+</head>
+<body>
+    <h1>
+        Welcome to the Great Number Game!
+    </h1>
+    <p>
+        I'm thinking of a number between 1 and 100
+    </p>
+    
+    <h3>
+        {{session['display_text']}}
+    </h3>
+
+    <form action='/guess' method='post'>
+        <label for='guess'>Take a guess:</label>
+        <input type='number' name='guess'>
+        <input type='submit' value='Submit'>
+    </form>
+
+    <a href="/clear_session">
+        <button>Reset</button>
+    </a>
+
+</body>
+</html>
