@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"></linkrel>
+    <title>Read (All)</title>
+</head>
+<body>
+    <div class="main-div">
+        <h1 class="element">All Users</h1>
+        <table class="element">
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            {% for user in users %}
+
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.first_name}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.email}}</td>
+                <td><a href="/read_one/{{user.id}}">Show</a> | <a href="/edit/{{user.id}}">Edit</a> | <a href="/delete/{{user.id}}">Delete</a></td>
+            </tr>
+
+            {% endfor %}
+        </table>
+        <a href="/create_user" class="element">Add a New User</a>
+    </div>
+</body>
+</html>

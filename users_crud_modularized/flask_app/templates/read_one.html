@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"></linkrel>
+    <title>Read (One)</title>
+</head>
+<body>
+    <div class="main-div">
+        <div class="top-div">
+            <h1 class="element">User {{user.id}}</h1>
+            <a href="/" class="element">Home</a>
+        </div>
+        <div class="user-info">
+            <p>Full Name: {{user.first_name}} {{user.last_name}}</p>
+            <p>Email: {{user.email}}</p>
+            <p>Created On: {{user.created_at}}</p>
+            <p>Last Updated On: {{user.updated_at}}</p>
+        </div>
+        <p><a href="/edit/{{user.id}}" class="element">Edit</a> | <a href="/delete/{{user.id}}" class="element">Delete</a></p>
+    </div>
+</body>
+</html>
