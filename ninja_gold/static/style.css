@@ -1,0 +1,54 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+.main-div{
+    width: 800px;
+    margin: 50px auto;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.top-div{
+    display: flex;
+    gap: 5px;
+}
+
+.score-box{
+    border: 2px solid black;
+    width: 100px;
+}
+
+.middle-div{
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.property-box{
+    border: 2px solid black;
+    height: 150px;
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.activities-box{
+    border: 2px solid black;
+    height: 80px;
+    overflow:auto;
+}
+
+.property-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
