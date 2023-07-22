@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <title>Dojo Show</title>
+</head>
+<body>
+    <div class="main-div">
+        <div class="main-block">
+            <h1>{{dojo.name}} Ninjas</h1>
+            {% if dojo.ninjas|length > 0 %}
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Actions</th>
+                </tr>
+                {% for ninja in dojo.ninjas %}
+                <tr>
+                    <td>{{ninja.id}}</td>
+                    <td>{{ninja.first_name}}</td>
+                    <td>{{ninja.last_name}}</td>
+                    <td>{{ninja.age}}</td>
+                    <td><a href="/delete_ninja/{{ninja.id}}">delete</a> | <a href="/edit_ninja/{{ninja.id}}">edit</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <h3>
+                Nobody cares about {{dojo.name}}
+            </h3>
+            {% endif %}
+            <a href="/">home</a>
+        </div>
+    </div>
+</body>
+</html>
