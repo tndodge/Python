@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}">
+    <title>Cookie Orders</title>
+</head>
+<body>
+    <div class="main-div">
+        <div class="orders-main">
+            <div class="spread-apart">
+                <h1>
+                    Log a New Order
+                </h1>
+                <a href="/orders">Back to purchases</a>
+            </div>
+            <div class="messages">
+                {% with messages = get_flashed_messages() %}
+
+                    {% if messages %}
+
+                        {% for message in messages %}
+
+                            <p>{{message}}</p>
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endwith %}
+            </div>
+            <div class="form-div">
+                <form action="/process_order" method="POST">
+                    <div class="form-labels-and-inputs">
+                        <div class="form-labels">
+                            <label for="customer-name">Name: </label>
+                            <label for="cookie-type">Cookie Type: </label>
+                            <label for="number-of-boxes">Number of boxes: </label>
+                        </div>
+                        <div class="form-inputs">
+                            <input type="text" name="customer-name">
+                            <input type="text" name="cookie-type">
+                            <input type="number" name="number-of-boxes">
+                        </div>
+                    </div>
+                    <input type="submit" value="Log">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

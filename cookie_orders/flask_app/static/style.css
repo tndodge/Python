@@ -1,0 +1,56 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.main-div{
+    width: 80%;
+    margin: 50px auto;
+}
+
+.orders-main{
+    margin: 0px auto;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-table-div{
+    width: 100%;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid;
+}
+
+td {
+    text-align: center;
+}
+
+.spread-apart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form-labels-and-inputs{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.form-labels, .form-inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.messages > p{
+    color: red;
+}
