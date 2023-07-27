@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"></linkrel>
+    <title>Create</title>
+</head>
+<body>
+    <div class="main-div">
+        <div class="top-div">
+            <h1 class="element">Add a New User</h1>
+            <a href="/" class="element">Home</a>
+        </div>
+        <div class="messages">
+            {% with messages = get_flashed_messages() %}
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <p>{{message}}</p>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+        </div>
+        <form action="/process_create_user" method="POST" class="user-form">
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" class="text-field" value="{% if 'form_data' in session %}{{ session['form_data']['first_name'] }}{% endif %}">
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" class="text-field" value="{% if 'form_data' in session %}{{ session['form_data']['last_name'] }}{% endif %}">
+            <label for="email">Email</label>
+            <input type="text" name="email" class="text-field" value="{% if 'form_data' in session %}{{ session['form_data']['email'] }}{% endif %}">
+            <input type="submit" value="Add User" class="submit-button">
+        </form> 
+    </div>
+</body>
+</html>

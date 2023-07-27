@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"></linkrel>
+    <title>Edit</title>
+</head>
+<body>
+    <div class="main-div">
+        <div class="top-div">
+            <h1 class="element">Edit User {{user.id}}</h1>
+            <a href="/" class="element">Home</a>
+        </div>
+        <form action="/process_edit" method="POST" class="user-form">
+            <label for="first_name">First Name</label>
+            <input type="text" name="first_name" value="{{user.first_name}}" class="text-field">
+            <label for="last_name">LastName</label>
+            <input type="text" name="last_name" value="{{user.last_name}}" class="text-field">
+            <label for="email">Email</label>
+            <input type="text" name="email" value="{{user.email}}"  class="text-field">
+            <input type="hidden" name="id" value="{{user.id}}">
+            <div>
+                <input type="submit" value="Update" class="submit-button">
+                <a href="/read_one/{{user.id}}">Show User</a>
+            </div>
+        </form> 
+    </div>
+</body>
+</html>
