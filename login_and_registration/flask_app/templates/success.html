@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"></linkrel>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="main-div">
+        <div class="main-block">
+            <h1>Hello {{user.first_name}}!</h1>
+            {% if user.birthday %}
+                <p>Your birthday is: {{user.birthday}}</p>
+            {% else %}
+                <p>I don't know your birthday!</p>
+            {% endif %}
+
+            {% if user.preferred_milk %}
+                <p>Your preferred milk is: {{user.preferred_milk}}</p>
+            {% else %}
+                <p>I don't know whether you prefer cow's or goat's milk!</p>
+            {% endif %}
+
+            {% if user.has_brown_hair %}
+                <p>You have brown hair!</p>
+            {% else %}
+                <p>You do not have brown hair!</p>
+            {% endif %}
+            <a href="/log_out"><button>Logout</button></a>
+        </div>
+    </div>
+</body>
+</html>
