@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"></linkrel>
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="main">
+        <div class="header-main">
+            <div class="header-left">
+                <h2>Coding Dojo Wall</h2>
+                <h2>Welcome, {{user.first_name}}!</h2>
+            </div>
+            <div class="button-div">
+                <a href="/log_out" class="link"><h2>Logout</h2></a>
+            </div>
+        </div>
+        <div class="post-main">
+            <form action="/publish_post" class="post-form" method="post">
+                <div class="messages">
+                    {% with messages = get_flashed_messages(category_filter=["post"]) %}
+    
+                        {% if messages %}
+    
+                            {% for message in messages %}
+    
+                                <p>{{message}}</p>
+    
+                            {% endfor %}
+    
+                        {% endif %}
+    
+                    {% endwith %}
+                </div>
+                <label for="content"><h3>What's on your mind? Create a new post:</h3></label>
+                <textarea name="content" class="post-area" cols="30" rows="10"></textarea>
+                <input type="hidden" name="nothing" value="nothing">
+                <div class="submit-button-div">
+                    <input type="submit" value="Publish" class="submit-button">
+                </div>
+            </form>
+        </div>
+        <div class="posts-main">
+            <h1>All Community Posts</h1>
+            <div class="messages">
+                {% with messages = get_flashed_messages(category_filter=["delete"]) %}
+
+                    {% if messages %}
+
+                        {% for message in messages %}
+
+                            <p>{{message}}</p>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endwith %}
+            </div>
+            <div class="posts">
+                {% for post in posts %}
+
+                    <div class="post-block">
+                        <h3>{{post['user'].first_name}} - {{post['post'].created_at.strftime("%B %-d")}}</h3>
+                        <div class="content-and-button">
+                            <div class="content-div">
+                                <p class="post-content">{{post['post'].content}}</p>
+                            </div>
+                            <div class="delete-div">
+                                <div class="delete-div-buffer">
+                                    <form action="/delete_post" class="delete-form" method="GET" {% if post['post'].user_id != session['user_id'] %} style="display: none;" {% endif %}>
+                                        <input type="hidden" name="post-id" value="{{post['post'].id}}">
+                                        <input type="submit" value="Delete" class="delete-button">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
