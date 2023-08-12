@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"></linkrel>
+    <title>Recipe Share</title>
+</head>
+<body>
+    <h1>Welcome, {{session['first_name']}}!</h1>
+    <a href="/create_recipe"><button>+ Create</button></a>
+    <a href="/log_out"><button>logout</button></a>
+    {% with messages = get_flashed_messages(category_filter=["action"]) %}
+        
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <p style="color: red;">{{message}}</p>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+    <p>All posted recipes:</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Under 30 min</th>
+            <th>Posted by</th>
+            <th>Actions</th>
+        </tr>
+        {% for recipe_dict in recipe_dicts %}
+
+            <tr>
+                <td>{{recipe_dict['recipe']['name']}}</td>
+                <td>
+                    {% if recipe_dict['recipe']['under_thirty'] %}
+                    Yes
+                    {% else %}
+                    No
+                    {% endif %}
+                </td>
+                <td>{{recipe_dict['user']['first_name']}}</td>
+                <td>
+                    <a href="/view_recipe/{{recipe_dict['recipe'].id}}">view recipe</a>
+                    {% if  recipe_dict['recipe'].user_id == session['user_id'] %}
+                        <a href="/edit_recipe/{{recipe_dict['recipe'].id}}">edit recipe</a>
+                        <a href="/delete_recipe/{{recipe_dict['recipe'].id}}">delete recipe</a>
+                    {% endif %}
+                </td>
+            </tr>
+
+        {% endfor %}
+    </table>
+</body>
+</html>

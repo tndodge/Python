@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"></linkrel>
+    <title>Recipe Share</title>
+</head>
+<body>
+    <h1>Welcome, {{session['first_name']}}!</h1>
+    <a href="/"><button>back to recipes</button></a>
+    <a href="/log_out"><button>logout</button></a>
+    <h1>{{recipe.name}}</h1>
+    <br>
+    <p>Description: {{recipe.description}}</p>
+    <br>
+    <p>Under thirty minutes?</p>
+    {% if recipe.under_thirty %}
+    <p>Yes</p>
+    {% else %}
+    <p>No</p>
+    {% endif %}
+    <br>
+    <p>Instructions: {{recipe.instructions}}</p>
+    <br>
+    <p>Date made: {{recipe.date_cooked}}</p>
+</body>
+</html>
