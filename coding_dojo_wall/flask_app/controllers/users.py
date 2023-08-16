@@ -37,14 +37,9 @@ def success():
         data = {
             'id': session['user_id']
         }
-        user = User.get_user_by_id(data)
         posts = Post.get_all()
-        post_dicts = []
-        for post in posts:
-            data = {'id': post.user_id}
-            post_user = User.get_user_by_id(data)
-            post_dicts.insert(0,{'post': post, 'user': post_user})
-        return render_template('wall_page.html', user = user, posts = post_dicts)
+        posts.reverse()
+        return render_template('wall_page.html', posts = posts)
     return redirect('/')
 
 @app.route('/log_out')

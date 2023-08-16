@@ -18,7 +18,8 @@ def publish_post():
 
 @app.route('/delete_post', methods=['GET'])
 def delete_post():
-    print('POST ID: ',request.args.get('post-id'))
+    if not check_session():
+        return log_out()
     post_id = request.args.get('post-id')
     data = {'id': post_id}
     if not Post.validate_delete(data):

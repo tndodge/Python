@@ -11,6 +11,7 @@ class Post:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.display_date = ''
+        self.user = {}
 
     @classmethod
     def save(cls, data):
@@ -21,20 +22,52 @@ class Post:
     
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM posts;"
+        query = """SELECT *
+                FROM posts
+                LEFT JOIN users
+                ON user_id = users.id;"""
         results = connectToMySQL(DB).query_db(query)
         posts = []
         for post in results:
-            posts.append( cls(post) )
+            data = {
+                'id': post['users.id'],
+                'first_name': post['first_name'],
+                'last_name': post['last_name'],
+                'email': post['email'],
+                'password': post['password'],
+                'created_at': post['users.created_at'],
+                'updated_at': post['users.updated_at'],
+            }
+            user = User(data)
+            new_post = cls(post)
+            new_post.user = user
+            posts.append(new_post)
         return posts
     
     @classmethod
     def get_by_id(cls, data):
-        query = "SELECT * FROM posts WHERE id = %(id)s;"
+        query = """SELECT *
+                FROM posts
+                LEFT JOIN users
+                ON user_id = users.id
+                WHERE posts.id = %(id)s;"""
         result = connectToMySQL(DB).query_db(query,data)
         if len(result) == 0:
             return False
-        return cls(result[0])
+        post = result[0]
+        new_post = cls(post)
+        data = {
+                'id': post['users.id'],
+                'first_name': post['first_name'],
+                'last_name': post['last_name'],
+                'email': post['email'],
+                'password': post['password'],
+                'created_at': post['users.created_at'],
+                'updated_at': post['users.updated_at'],
+                }
+        user = User(data)
+        new_post.user = user
+        return new_post
     
     @classmethod
     def delete(cls, data):
@@ -55,9 +88,7 @@ class Post:
         data = {'id': delete['id']}
         post = Post.get_by_id(data)
         if post:
-            data = {'id': post.user_id}
-            user = User.get_user_by_id(data)
-            if user.id != session['user_id']:
+            if post.user.id != session['user_id']:
                 flash('* You are not allowed to delete other users\' posts', 'delete')
                 is_valid = False
         else:

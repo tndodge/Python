@@ -11,7 +11,7 @@
         <div class="header-main">
             <div class="header-left">
                 <h2>Coding Dojo Wall</h2>
-                <h2>Welcome, {{user.first_name}}!</h2>
+                <h2>Welcome, {{session['first_name']}}!</h2>
             </div>
             <div class="button-div">
                 <a href="/log_out" class="link"><h2>Logout</h2></a>
@@ -63,17 +63,19 @@
                 {% for post in posts %}
 
                     <div class="post-block">
-                        <h3>{{post['user'].first_name}} - {{post['post'].created_at.strftime("%B %-d")}}</h3>
+                        <h3>{{post.user.first_name}} - {{post.created_at.strftime("%B %-d")}}</h3>
                         <div class="content-and-button">
                             <div class="content-div">
-                                <p class="post-content">{{post['post'].content}}</p>
+                                <p class="post-content">{{post.content}}</p>
                             </div>
                             <div class="delete-div">
                                 <div class="delete-div-buffer">
-                                    <form action="/delete_post" class="delete-form" method="GET" {% if post['post'].user_id != session['user_id'] %} style="display: none;" {% endif %}>
-                                        <input type="hidden" name="post-id" value="{{post['post'].id}}">
+                                    {% if post.user_id == session['user_id']%}
+                                    <form action="/delete_post" class="delete-form" method="GET">
+                                        <input type="hidden" name="post-id" value="{{post.id}}">
                                         <input type="submit" value="Delete" class="delete-button">
                                     </form>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
